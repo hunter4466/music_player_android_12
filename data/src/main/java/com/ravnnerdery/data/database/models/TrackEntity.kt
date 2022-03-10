@@ -4,7 +4,7 @@ import com.ravnnerdery.data.mappers.DomainMapper
 import com.ravnnerdery.domain.models.Track
 
 data class TrackEntity(
-    var id: Any = "",
+    var id: String = "",
     var artist: String = "",
     var name: String = "",
     var trackUrl: String = "",

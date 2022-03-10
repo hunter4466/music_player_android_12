@@ -13,6 +13,7 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import com.ravnnerdery.domain.models.Track
+import com.ravnnerdery.music_player_android_12.services.MediaService
 import com.ravnnerdery.music_player_android_12.services.MusicService
 import com.ravnnerdery.music_player_android_12.ui.Application
 import com.ravnnerdery.starwarschallenge.ui.theme.ApplicationTheme
@@ -26,19 +27,19 @@ class MainActivity @Inject constructor(
     private val mainViewModel: MainViewModel by viewModels()
 
     fun makeServiceStart() {
-        Intent(this, MusicService::class.java).also {
+        Intent(this, MediaService::class.java).also {
             startService(it)
         }
     }
 
     fun stopService() {
-        Intent(this, MusicService::class.java).also {
+        Intent(this, MediaService::class.java).also {
             stopService(it)
         }
     }
 
     fun changeService() {
-        Intent(this, MusicService::class.java).also {
+        Intent(this, MediaService::class.java).also {
             it.putExtra("Extra_data", "Some Data")
             startService(it)
         }

@@ -21,6 +21,7 @@ buildscript {
         version_compose = '1.0.5'
         version_compose_nav = '2.4.1'
         version_paging = '3.1.0'
+        compose_version = '1.0.1'
     }
     repositories {
         google()

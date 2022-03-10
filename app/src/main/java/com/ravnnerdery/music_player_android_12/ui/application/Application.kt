@@ -20,9 +20,6 @@ fun Application(
     changeSomeService: () -> Unit) {
 
     val tracksList by viewModel.tracksFlow.collectAsState(initial = emptyList())
-    tracksList.forEach {
-        Log.wtf("MARIOCH","some data: ${it.artist}")
-    }
 
     Column{
         Button(onClick = { startSomeService() }) {
