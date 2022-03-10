@@ -20,14 +20,11 @@ class MainRepositoryImpl @Inject constructor(
 ): MainRepository {
 
     override fun provideTracksFlow(): Flow<List<Track>> = flow {
-        while (true) {
             try {
                 emit(firestoreDatabase.getAllTracks().map{ it.mapToDomainModel() })
             } catch (e: Exception) {
                 Log.wtf("Exception","DatabaseError: $e")
                 emit(emptyList())
             }
-            delay(1000)
-        }
     }.flowOn(Dispatchers.IO)
 }

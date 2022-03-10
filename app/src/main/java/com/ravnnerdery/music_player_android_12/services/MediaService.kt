@@ -6,6 +6,7 @@ import android.os.IBinder
 import android.util.Log
 import com.ravnnerdery.data.useCases.ProvideTracksFlowUseCase
 import com.ravnnerdery.domain.models.Track
+import com.ravnnerdery.music_player_android_12.services.mediaPlayer.MusicPlayer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,29 +20,19 @@ class MediaService: Service() {
     @Inject
     lateinit var provideTracksFlowUseCase: ProvideTracksFlowUseCase
 
+    @Inject
+    lateinit var musicPlayer: MusicPlayer
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    var TAG = "MyService"
     private var isRunning = false
-    private var trackList = emptyList<Track>()
-    private fun bringList() {
-        uiScope.launch {
-            return@launch provideTracksFlowUseCase.execute().collect { list ->
-                trackList = list.map { it }
-            }
-        }
-    }
 
     init {
-        isRunning = true
-        Thread {
-            while (isRunning){
-                bringList()
-                Log.wtf("MARIOCH","Service is running... with: $TAG")
-                Log.wtf("MARIOCH", "The list contains ${trackList.size} elements.")
-                Thread.sleep(1000)
+        uiScope.launch {
+            return@launch provideTracksFlowUseCase.execute().collect { list ->
+                musicPlayer.feedMusicList(list.map { it })
             }
-        }.start()
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -49,13 +40,25 @@ class MediaService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val dataString = intent?.getStringExtra("Extra_data")
-        dataString?.let {
-            TAG = it
-        }
-        return Service.START_STICKY
-    }
+        val action = intent?.getStringExtra("action")
+        val id = intent?.getStringExtra("id")
+        when (action) {
+            "play_track" -> {
+                musicPlayer.playPauseSong(id ?: "0")
+            }
+            "play_next" -> {
+                musicPlayer.playNext()
+            }
+            "play_previous" -> {
+                musicPlayer.playPrevious()
+            }
+            "load_first" -> {
 
+            }
+        }
+
+        return START_STICKY
+    }
 
     override fun onDestroy() {
         super.onDestroy()

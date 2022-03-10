@@ -4,6 +4,6 @@ data class Track (
     val id: String,
     val artist: String,
     val name: String,
-    val trackUrl: String,
-    val trackThumbnail: String,
+    val trackUrl: Long,
+    val trackThumbnail: Long,
 )

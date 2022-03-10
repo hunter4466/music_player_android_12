@@ -1,36 +1,38 @@
-package com.ravnnerdery.music_player_android_12.ui
+package com.ravnnerdery.music_player_android_12.ui.application
 
-import android.util.Log
+
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
-import com.ravnnerdery.domain.models.Track
 import com.ravnnerdery.music_player_android_12.application.MainViewModel
+import com.ravnnerdery.music_player_android_12.services.mediaPlayer.MusicPlayer
+import com.ravnnerdery.music_player_android_12.ui.application.navhost.NavigationHost
+import com.ravnnerdery.music_player_android_12.ui.application.topbar.TopBar
 
 @Composable
 fun Application(
-    viewModel: MainViewModel,
+    musicPlayer: MusicPlayer,
     imageLoader: ImageLoader,
-    startSomeService: () -> Unit,
-    stopSomeService: () -> Unit,
-    changeSomeService: () -> Unit) {
+    onNextTrackClick: () -> Unit,
+    onPreviousTrackClick: () -> Unit,
+    onPlayPause: (String) -> Unit
+) {
+    val musicList by musicPlayer.getMusicList().collectAsState(initial = emptyList())
+    val activeTrackData by musicPlayer.getCurrentSongData().collectAsState(initial = null)
+    val navController = rememberNavController()
 
-    val tracksList by viewModel.tracksFlow.collectAsState(initial = emptyList())
-
-    Column{
-        Button(onClick = { startSomeService() }) {
-            Text("START")
-        }
-        Button(onClick = { stopSomeService() }) {
-            Text("STOP")
-        }
-        Button(onClick = { changeSomeService() }) {
-            Text("CHANGE")
-        }
+    Column {
+        TopBar()
+        NavigationHost(
+            currentTrackData = activeTrackData,
+            navController = navController,
+            imageLoader = imageLoader,
+            onNextTrackClick = { onNextTrackClick() },
+            onPreviousTrackClick = { onPreviousTrackClick() },
+            onPlayPause = { onPlayPause(it) },
+        )
     }
-
 }
