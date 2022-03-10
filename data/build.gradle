@@ -64,6 +64,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.0.1'
     // Firebase Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.0'
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Pagination
     implementation "androidx.paging:paging-runtime-ktx:$version_paging"

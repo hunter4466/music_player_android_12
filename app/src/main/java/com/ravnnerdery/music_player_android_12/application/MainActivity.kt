@@ -8,9 +8,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.material.Scaffold
+import androidx.compose.runtime.*
 import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
+import com.ravnnerdery.domain.models.Track
 import com.ravnnerdery.music_player_android_12.services.MusicService
 import com.ravnnerdery.music_player_android_12.ui.Application
 import com.ravnnerdery.starwarschallenge.ui.theme.ApplicationTheme

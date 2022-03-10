@@ -24,7 +24,7 @@ class MainRepositoryImpl @Inject constructor(
             try {
                 emit(firestoreDatabase.getAllTracks().map{ it.mapToDomainModel() })
             } catch (e: Exception) {
-                Log.wtf("Exception:","Database: $e")
+                Log.wtf("Exception","DatabaseError: $e")
                 emit(emptyList())
             }
             delay(1000)
