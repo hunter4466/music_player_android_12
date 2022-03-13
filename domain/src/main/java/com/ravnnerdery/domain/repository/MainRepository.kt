@@ -1,8 +1,11 @@
 package com.ravnnerdery.domain.repository
 
+import android.media.MediaPlayer
 import com.ravnnerdery.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
-    fun provideTracksFlow(): Flow<List<Track>>
+    fun provideLoadingState(): Flow<Boolean>
+    fun changeLoadingState(state: Boolean)
+    fun provideTracksFlow(): Flow<List<Pair<Track, MediaPlayer>>>
 }
