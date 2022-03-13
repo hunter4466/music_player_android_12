@@ -1,9 +1,8 @@
 package com.ravnnerdery.domain.models
 
-data class Track (
+data class Track(
     val id: String,
-    val artist: String,
+    val album: String,
     val name: String,
-    val trackUrl: Long,
-    val trackThumbnail: Long,
+    val trackThumbnail: Int,
 )
