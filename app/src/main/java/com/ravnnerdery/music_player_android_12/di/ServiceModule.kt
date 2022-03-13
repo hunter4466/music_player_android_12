@@ -5,7 +5,6 @@ import com.ravnnerdery.music_player_android_12.services.mediaPlayer.MusicPlayerI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -17,7 +16,7 @@ class ServiceModule {
     @Singleton
     fun provideMusicPlayer(
         musicPlayerImpl: MusicPlayerImpl
-    ) : MusicPlayer {
+    ): MusicPlayer {
         return musicPlayerImpl
     }
 

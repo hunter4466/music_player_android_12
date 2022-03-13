@@ -1,9 +1,7 @@
 package com.ravnnerdery.music_player_android_12.services.mediaPlayer
 
 import android.content.Context
-import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.media.MediaSync
 import android.util.Log
 import android.widget.Toast
 import com.ravnnerdery.domain.models.Track
@@ -19,59 +17,74 @@ class MusicPlayerImpl @Inject constructor(
     @ApplicationContext private var context: Context
 ) : MusicPlayer {
     private var musicList: List<Pair<Track, MediaPlayer>> = emptyList()
-    private lateinit var currentTrack: Pair<Track, MediaPlayer>
+    private var currentTrack: Pair<Track, MediaPlayer>? = null
     private var firstPlay = true
-    override fun feedMusicList(list: List<Track>) {
-        musicList = list.map {
-            Pair(it, MediaPlayer.create(context, it.trackUrl.toInt()))
-        }
+
+    override fun feedMusicList(list: List<Pair<Track, MediaPlayer>>) {
+        Log.wtf("APPTRACE", "HOW MANY TIMES IS THIS BEING CALLED?")
+        musicList = list
+        currentTrack = musicList.first()
+    }
+
+    override fun getCurrentSongId(): String {
+        return currentTrack?.first?.id ?: "none"
     }
 
     override fun getCurrentSongData(): Flow<Track> = flow {
-        while(true){
-            emit(currentTrack.first)
+        while (true) {
+            emit(currentTrack?.first ?: Track("0", "", "", 1))
             delay(500)
         }
     }.flowOn(Dispatchers.IO)
 
     override fun playPauseSong(id: String) {
         try {
-            musicList.find { it.first.id == id }?.let {
-                if (!firstPlay) {
-                    currentTrack.second.seekTo(0)
-                    currentTrack.second.pause()
+            musicList.find { it.first.id == id }?.let { track ->
+                if (track.second.isPlaying) {
+                    track.second.pause()
+                } else {
+                    if (!firstPlay) {
+                        if (track != currentTrack) {
+                            currentTrack?.second?.seekTo(0)
+                        }
+                        currentTrack?.second?.pause()
+                    }
+                    currentTrack = track
+                    currentTrack?.second?.start()
+                    firstPlay = false
                 }
-                currentTrack = it
-                currentTrack.second.start()
-                firstPlay = false
             }
         } catch (e: Exception) {
             Toast.makeText(context, "Track was not found", Toast.LENGTH_SHORT).show()
-            Log.wtf("Exception", "Track was not found: $e")
         }
     }
 
-    override fun getMusicList(): Flow<List<Track>> = flow{
-        while (true){
-            emit(musicList.map{ it.first })
+    override fun stopCurrent() {
+        currentTrack?.second?.seekTo(0)
+        currentTrack?.second?.pause()
+    }
+
+    override fun getMusicList(): Flow<List<Track>> = flow {
+        while (true) {
+            emit(musicList.map { it.first })
             delay(1000)
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getCurrentSongPositionFLow(): Flow<Int> = flow {
-        while (true){
-            val position: Int = currentTrack.second.currentPosition
+        while (true) {
+            val position: Int = currentTrack?.second?.currentPosition ?: 0
             emit(position)
             delay(1000)
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getCurrentSongDuration(): Flow<Int> = flow {
-        emit(currentTrack.second.duration)
+        emit(currentTrack?.second?.duration ?: 0)
     }.flowOn(Dispatchers.IO)
 
     override fun playCurrentOn(position: Int) {
-        currentTrack.second.seekTo(position)
+        currentTrack?.second?.seekTo(position)
     }
 
     override fun playNext() {
@@ -83,8 +96,6 @@ class MusicPlayerImpl @Inject constructor(
             }
         playPauseSong(nextTrack.first.id)
     }
-
-
 
     override fun playPrevious() {
         val previousTrack: Pair<Track, MediaPlayer> = if (musicList.indexOf(currentTrack) == 0) {
