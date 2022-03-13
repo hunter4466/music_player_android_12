@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "951323410958",
+    "project_id": "music-app-ravn",
+    "storage_bucket": "music-app-ravn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951323410958:android:1f03cc7177514202b2725f",
+        "android_client_info": {
+          "package_name": "com.ravnnerdery.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951323410958-r5dja7ibp8cpl5jlta76oepvk9n3hi2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIsxjvG46qs_5cU3zGvmJqKetVUWX_Vu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951323410958-r5dja7ibp8cpl5jlta76oepvk9n3hi2t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951323410958:android:5063abe50ee95a4fb2725f",
+        "android_client_info": {
+          "package_name": "com.ravnnerdery.music_player_12"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951323410958-r5dja7ibp8cpl5jlta76oepvk9n3hi2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIsxjvG46qs_5cU3zGvmJqKetVUWX_Vu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951323410958-r5dja7ibp8cpl5jlta76oepvk9n3hi2t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951323410958:android:6535f54adb56a82db2725f",
+        "android_client_info": {
+          "package_name": "com.ravnnerdery.music_player_android_12"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951323410958-r5dja7ibp8cpl5jlta76oepvk9n3hi2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIsxjvG46qs_5cU3zGvmJqKetVUWX_Vu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951323410958-r5dja7ibp8cpl5jlta76oepvk9n3hi2t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
