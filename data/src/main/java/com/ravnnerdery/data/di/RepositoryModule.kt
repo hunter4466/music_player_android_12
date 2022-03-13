@@ -1,6 +1,5 @@
 package com.ravnnerdery.data.di
 
-import com.ravnnerdery.data.database.FirestoreDatabaseImpl
 import com.ravnnerdery.data.repository.MainRepositoryImpl
 import com.ravnnerdery.domain.repository.MainRepository
 import dagger.Module

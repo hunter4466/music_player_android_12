@@ -1,7 +1,6 @@
 package com.ravnnerdery.data.di
 
-import com.ravnnerdery.data.useCases.ProvideTracksFlowUseCase
-import com.ravnnerdery.data.useCases.ProvideTracksFlowUseCaseImpl
+import com.ravnnerdery.data.useCases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,5 +16,21 @@ class UseCasesModule {
         provideTracksFlowUseCaseImpl: ProvideTracksFlowUseCaseImpl
     ): ProvideTracksFlowUseCase {
         return provideTracksFlowUseCaseImpl
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoadingStateUseCase(
+        provideLoadingStateUseCaseImpl: ProvideLoadingStateUseCaseImpl
+    ): ProvideLoadingStateUseCase {
+        return provideLoadingStateUseCaseImpl
+    }
+
+    @Provides
+    @Singleton
+    fun changeLoadingStateUseCase(
+        changeLoadingStateUseCaseImpl: ChangeLoadingStateUseCaseImpl
+    ): ChangeLoadingStateUseCase {
+        return changeLoadingStateUseCaseImpl
     }
 }
