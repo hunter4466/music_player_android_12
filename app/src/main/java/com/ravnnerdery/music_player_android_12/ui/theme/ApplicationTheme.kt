@@ -1,4 +1,4 @@
-package com.ravnnerdery.starwarschallenge.ui.theme
+package com.ravnnerdery.music_player_android_12.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
